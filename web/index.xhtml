@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet"></link>
@@ -16,23 +18,30 @@
             }
             .littleText{
                 font-family:  'Roboto Slab', serif;
+                font-size: 16px;
             }
             .borderRow{
+                width: 25%;
+                float: left;
                 border:  solid #FF6B6C;
             }
             .borderRow2{
+                width: 25%;
+                float: left;
                 border: solid #F3F9D2;
             }
             h4{
                 font-family: 'Roboto Slab', serif;
             }
             .mainContent{
-                text-align: center;
-                content-align:center;
+                text-align: left;
+                padding: 0 78% 0 0;
             }
             .label{
                 font-family: 'Roboto Slab', serif;
                 color: #2F2F2F;
+                font-size: 16px;
+                font-weight: lighter;
             }
             .textBox{
                 border-radius: 5px;
@@ -42,7 +51,15 @@
             }
             .btnW{
                 width: 100%;
+                padding: 10px 0 10px 0;
+                margin-bottom: 20px;
                 display: block;
+            }
+            .form{
+                margin: 20px 0 30px 0;
+            }
+            .footer{
+                margin-top: 20px;
             }
         </style>
         
@@ -51,37 +68,62 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="class1">Hello There</h1>
-                    <p class="littleText">It is java web time</p>
+                    <h1 class="class1">Cadastro de Pessoas</h1>
+                    <p class="littleText">Hora do Java Web</p>
                 </div>
             </div>
             <div class="row borderRow">
                
             </div>    
             <div class="row mainContent">
-                <div class="col-4"><br/></div>
-                    <h:form>
-                        <div class="col-4">
-                            <h:outputLabel class="label" value="Nome:"/>
-                             <h:inputText id="Nome" class="textBox btnW" value="#{pessoaMB.pessoa.nome}"/>
-                             <h:message for="nome"/>
-                             <h:outputLabel class="label" value="Idade"/>
-                             <h:inputText id="Idade" class="textBox btnW"/>
-                             <h:message for="Idade"/>
-                             <h:commandButton id="btnCadastrar" class="btn btn-primary btnW" type="reset" value="Cadastrar"/>
+                
+                    <h:form id="formulario">
+                        
+                        <div class="col-4 form">
+                             <h:outputLabel class="label" value="Nome:"/>
+                             <p:inputText id="Nome" class="textBox btnW" value="#{pessoaMB.pessoa.nome}" required="true" requiredMessage="Campo Obrigatório"/>
+                             <h:message for="Nome"/>
+                             <h:outputLabel class="label" value="Idade:"/>
+                             <p:inputText id="Idade" class="textBox btnW" value="#{pessoaMB.pessoa.idade}" required="true" requiredMessage="Campo Obrigatório"/>
+                             <p:message for="Idade"/>
+                             <p:commandButton id="btnCadastrar" class="btn btn-primary btnW" type="submit" value="Cadastrar" 
+                                              onclick="pop()" action="#{pessoaMB.cadastraPessoa()}" process="@form" update="formulario:tablePessoa grid"/>
                              <h:commandButton id="btnLimpar" class="btn btn-light btnW" type="reset" value="Limpar"/>
                         </div>
+                        
                     </h:form>
-                <div class="col-4"><br/></div>
+                
             </div>
             <div class="row borderRow2">
-               
             </div>
             <div class="footer row">
                 <div class="col-12">
-                    <h4>About the developer</h4>
+                    <h4>Pessoas cadastradas:</h4>
+                    <h:panelGrid>
+                        <p:dataTable id="tablePessoas" value="#{pessoaMB.pessoas}" var="p" emptyMessage="Sem Registros" rows="5" paginator="true">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NOME:"/>
+                                </f:facet>
+                                <h:outputText value="#{p.nome}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IDADE:"/>
+                                </f:facet>
+                                <h:outputText value="#{p.idade}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
                 </div>
             </div>
+            <script type="text/javascript">
+                //<!--
+                function pop(){
+                    window.alert("Pessoa cadastrada!");
+                }
+                 //-->
+            </script>
         </div>
        
     </h:body>
