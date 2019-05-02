@@ -49,4 +49,8 @@ public class PessoaMB {
         pessoa = new Pessoa();
     }
     
+    public void mataPeople(Pessoa pessoa){
+        pessoas.remove(pessoa);
+    }
+    
 }

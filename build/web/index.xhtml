@@ -75,57 +75,57 @@
             <div class="row borderRow">
                
             </div>    
-            <div class="row mainContent">
-                
-                    <h:form id="formulario">
-                        
+                <h:form id="formulario">
                         <div class="col-4 form">
                              <h:outputLabel class="label" value="Nome:"/>
                              <p:inputText id="Nome" class="textBox btnW" value="#{pessoaMB.pessoa.nome}" required="true" requiredMessage="Campo Obrigatório"/>
-                             <h:message for="Nome"/>
+                             <p:message for="Nome"/>
                              <h:outputLabel class="label" value="Idade:"/>
                              <p:inputText id="Idade" class="textBox btnW" value="#{pessoaMB.pessoa.idade}" required="true" requiredMessage="Campo Obrigatório"/>
                              <p:message for="Idade"/>
                              <p:commandButton id="btnCadastrar" class="btn btn-primary btnW" type="submit" value="Cadastrar" 
-                                              onclick="pop()" action="#{pessoaMB.cadastraPessoa()}" process="@form" update="formulario:tablePessoa grid"/>
+                                              onclick="pop()" action="#{pessoaMB.cadastraPessoa()}" process="@form" update="formulario:tablePessoa"/>
                              <h:commandButton id="btnLimpar" class="btn btn-light btnW" type="reset" value="Limpar"/>
                         </div>
-                        
-                    </h:form>
-                
-            </div>
-            <div class="row borderRow2">
-            </div>
-            <div class="footer row">
-                <div class="col-12">
-                    <h4>Pessoas cadastradas:</h4>
-                    <h:panelGrid>
-                        <p:dataTable id="tablePessoas" value="#{pessoaMB.pessoas}" var="p" emptyMessage="Sem Registros" rows="5" paginator="true">
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="NOME:"/>
-                                </f:facet>
-                                <h:outputText value="#{p.nome}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="IDADE:"/>
-                                </f:facet>
-                                <h:outputText value="#{p.idade}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                </div>
-            </div>
-            <script type="text/javascript">
-                //<!--
-                function pop(){
-                    window.alert("Pessoa cadastrada!");
-                }
-                 //-->
-            </script>
+                        <div class="row borderRow2">
+                        </div>
+                        <div class="footer row">
+                            <div class="col-12">
+                                <h4>Pessoas cadastradas:</h4>
+                                <h:panelGrid>
+                                    <p:dataTable id="tablePessoa" value="#{pessoaMB.pessoas}" var="p" emptyMessage="Sem Registros" rows="5" paginator="true">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="NOME:"/>
+                                            </f:facet>
+                                            <h:outputText value="#{p.nome}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="IDADE:"/>
+                                            </f:facet>
+                                            <h:outputText value="#{p.idade}"/>
+                                        </p:column>
+                                        <p:column>
+                                             <p:commandButton id="btnMata" class="btn btn-primary btnW" type="submit" value="Deletar" 
+                                              onclick="pop2()" action="#{pessoaMB.mataPeople(p)}" update="tablePessoa" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            //<!--
+                            function pop(){
+                                window.alert("Pessoa cadastrada!");
+                            }
+                            function pop2(){
+                                window.alert("Pessoa removida!");
+                            }
+                             //-->
+                        </script>
+                </h:form>
         </div>
-       
     </h:body>
 </html>
 
